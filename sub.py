@@ -41,12 +41,19 @@ def parse(msg):
 	min = x[-4] + x[-3]
 	power = hex2sign(int(x[-2],16))
 	rssi = x[-1]
+	
+#Publish back to 2 different topics for easier sorting
+	form = str(maj) + str(min) + " " + str(power) + str(rssi)
+	mqttc.publish("uq/beaconTracker/" + id,form, 0)
 
-	print(id)
-	print(maj)
-	print(min)
-	print(power)
-	print(rssi)
+	form = id + " " + str(power) + str(rssi)
+	mqttc.publish("uq/beaconTracker/" + str(maj) + str(min), form, 0) 
+
+#	print(id)
+#	print(maj)
+#	print(min)
+#	print(power)
+#	print(rssi)
 				
 
 #
@@ -58,11 +65,12 @@ def on_connect(mosq, obj, rc):
 	print("rc: " +str(rc))
 
 def on_message(mosq, obj, msg):
-#    print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
+     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
      parse(msg.payload)	
 
 def on_publish(mosq, obj, mid):
     print("mid: "+str(mid))
+#	mosq.disconnect()
 
 def on_subscribe(mosq, obj, mid, granted_qos):
     print("Subscribed: "+str(mid)+" "+str(granted_qos))
