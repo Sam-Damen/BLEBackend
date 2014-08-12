@@ -36,7 +36,7 @@ def parse(msg):
 #Find only ibeacon packets??
 #Assume proper formating (ie. phone app handles it)
 
-	id = msg[0:col]
+	id = msg[3:col]
 	maj = x[-6] + x[-5]
 	min = x[-4] + x[-3]
 	power = hex2sign(int(x[-2],16))
@@ -44,16 +44,12 @@ def parse(msg):
 	
 #Publish back to 2 different topics for easier sorting
 	form = str(maj) + str(min) + " " + str(power) + str(rssi)
-	mqttc.publish("uq/beaconTracker/" + id,form, 0)
+	mqttc.publish("uq/beaconTracker/id/" + id,form, 0)
 
-	form = id + " " + str(power) + str(rssi)
-	mqttc.publish("uq/beaconTracker/" + str(maj) + str(min), form, 0) 
 
-#	print(id)
-#	print(maj)
-#	print(min)
-#	print(power)
-#	print(rssi)
+#Extra topic if need private info
+#	form = id + " " + str(power) + str(rssi)
+#	mqttc.publish("uq/beaconTracker/mm/" + str(maj) + str(min), form, 0) 
 				
 
 #
