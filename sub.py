@@ -1,16 +1,8 @@
 #!/usr/local/bin/python2.7
 
 import mosquitto
-import argparse
 import sys
 
-
-#Input the topic to subscribe to
-parser = argparse.ArgumentParser(description='Subscribe to a MQTT Topic on the Winter CIET server')
-parser.add_argument('data', type = str, help='The MQTT topic')
-args = parser.parse_args()
-
-topic = args.data 
 
 #
 # Helper to convert unsigned hex to signed int
@@ -57,7 +49,7 @@ def parse(msg):
 #
 
 def on_connect(mosq, obj, rc):
-	mosq.subscribe(topic, 0)
+	mosq.subscribe("uq/beaconTracker/raw", 0)
 	print("rc: " +str(rc))
 
 def on_message(mosq, obj, msg):
@@ -65,7 +57,7 @@ def on_message(mosq, obj, msg):
      parse(msg.payload)	
 
 def on_publish(mosq, obj, mid):
-    print("mid: "+str(mid))
+	print("Published: "+str(mid))
 #	mosq.disconnect()
 
 def on_subscribe(mosq, obj, mid, granted_qos):
@@ -84,6 +76,5 @@ mqttc.on_subscribe = on_subscribe
 #mqttc.on_log = on_log
 
 mqttc.connect("winter.ceit.uq.edu.au", 1883, 60)
-
 
 mqttc.loop_forever()
