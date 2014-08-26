@@ -34,7 +34,7 @@ def parse(msg):
 	power = hex2sign(int(x[-2],16))
 	rssi = x[-1]
 	
-#Publish back to 2 different topics for easier sorting
+#Publish back to different topic for easier sorting
 	form = str(maj) + str(min) + " " + str(power) + str(rssi)
 	mqttc.publish("uq/beaconTracker/id/" + id,form, 0)
 
@@ -53,12 +53,13 @@ def on_connect(mosq, obj, rc):
 	print("rc: " +str(rc))
 
 def on_message(mosq, obj, msg):
-     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
+#     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
      parse(msg.payload)	
 
 def on_publish(mosq, obj, mid):
-	print("Published: "+str(mid))
+#	print("Published: "+str(mid))
 #	mosq.disconnect()
+	a = mid
 
 def on_subscribe(mosq, obj, mid, granted_qos):
     print("Subscribed: "+str(mid)+" "+str(granted_qos))
