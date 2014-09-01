@@ -12,7 +12,7 @@ MINTIME = 60
 
 def checkTime(id, maj, min, tx, rx):
 	sysTime = time.time()
-#	print(id,maj, min, tx, rx)
+	print(id,maj, min, tx, rx)
 #	print(sysTime)
 
 	if(phones.has_key(id)):
@@ -21,7 +21,7 @@ def checkTime(id, maj, min, tx, rx):
 		if((sysTime - oldTime) > MINTIME):
 			#add phone to database
 			usr.insert(doc)
-#			print("INSERTED")
+			print("INSERTED")
 	else:
 		phones[id] = sysTime
 #		print("Dict updated")
