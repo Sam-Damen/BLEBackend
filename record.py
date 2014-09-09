@@ -7,12 +7,12 @@ import time
 #Global Dictionary for ID & time
 
 phones = {}
-MINTIME = 60
+MINTIME = 5
 
 
 def checkTime(id, maj, min, tx, rx):
 	sysTime = time.time()
-	print(id,maj, min, tx, rx)
+#	print(id,maj, min, tx, rx)
 #	print(sysTime)
 
 	if(phones.has_key(id)):
@@ -54,7 +54,6 @@ mqttc.on_connect = on_connect
 mqttc.on_publish = on_publish
 mqttc.on_subscribe = on_subscribe
 #mqttc.on_log = on_log
-
 
 client = MongoClient()
 db = client.samd
