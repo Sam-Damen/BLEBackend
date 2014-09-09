@@ -7,7 +7,7 @@ import time
 client = MongoClient()
 db = client.samd
 usr = db.users
-MAXTIME = 30
+MAXTIME = 3
 		
 while True:
 	#for every unique phone in db, get time it was entered

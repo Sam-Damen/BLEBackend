@@ -7,7 +7,7 @@ import time
 #Global Dictionary for ID & time
 
 phones = {}
-MINTIME = 5
+MINTIME = 2
 
 
 def checkTime(id, maj, min, tx, rx):
