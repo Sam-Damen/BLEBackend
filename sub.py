@@ -3,6 +3,7 @@
 import mosquitto
 import sys
 
+TOPIC = "raw"
 
 #
 # Helper to convert unsigned hex to signed int
@@ -49,7 +50,7 @@ def parse(msg):
 #
 
 def on_connect(mosq, obj, rc):
-	mosq.subscribe("uq/beaconTracker/raw", 0)
+	mosq.subscribe("uq/beaconTracker/" + TOPIC, 0)
 	print("rc: " +str(rc))
 
 def on_message(mosq, obj, msg):
