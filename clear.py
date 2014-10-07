@@ -2,29 +2,44 @@
 
 from pymongo import MongoClient
 import time
-
+import pymongo
 
 client = MongoClient()
 db = client.samd
 usr = db.users
-MAXTIME = 3
-		
+MAXTIME = 6
+	
 #while True:
-	#for every unique phone in db, get time it was entered
-	# if sysTime - phoneTime > MAXTIME -> haven't seen a beacon in MAXTIME
-	# or old majmin |= new majmin -> moved into new room
-	#clear out the corresponding database documents
 	
 #ensure time formats are the same for comparison
 sysTime = time.mktime(time.gmtime(time.time()))
 
 
-for doc in usr.find():
+#Store the users in a list, newest to oldest
+roomList = usr.find().sort("_id",-1)
+
+seen = set()
+dups = []
+
+#Remove duplicates
+for x in roomList:
+	if x.get('phone') not in seen:
+		dups.append(x)
+		seen.add(x.get('phone'))
+
+# remove any old entries 
+for doc in dups:
 	usrTime = doc.get('_id').generation_time
 	usrTime = time.mktime(usrTime.timetuple())
 	if((sysTime - usrTime) > MAXTIME):
-		usr.remove({"_id": doc.get('_id')})
-		print("Removed")
+		dups.remove(doc)
+
+print(doc)
+print(doc.get('_id'))
+
+#Remove all docs in the db that do not match
+usr.remove({"_id": {"$nin", doc.get('_id')}})
+
 
 
 

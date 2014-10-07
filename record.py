@@ -5,10 +5,14 @@ import mosquitto
 import time
 
 #Global Dictionary for ID & time
-
 phones = {}
-MINTIME = 2
 
+#How often to insert data to DB
+MINTIME = 1
+
+#Ensure no duplicate messages
+MULTI = 3
+count = 0
 
 def checkTime(id, maj, min, tx, rx):
 	sysTime = time.time()
@@ -35,8 +39,12 @@ def on_connect(mosq, obj, rc):
 	print("rc: " + str(rc))
 
 def on_message(mosq, obj, msg):
+	global count
+	count += 1
 #	print(msg.topic+ " "+str(msg.qos)+" "+str(msg.payload))
-	checkTime(msg.topic[20:], msg.payload[:4], msg.payload[4:8], msg.payload[9:12], msg.payload[12:])
+	if (count % MULTI == 0):
+		checkTime(msg.topic[20:], msg.payload[:4], msg.payload[4:8], msg.payload[9:12], msg.payload[12:])
+		count = 0
 
 def on_publish(mosq, obj, mid):
 	print("mid: " + str(mid))

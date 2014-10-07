@@ -26,7 +26,6 @@ def parse(msg):
 	alen = int(x[0],16)
 	adlen = int(x[alen + 1],16)
 	
-#Find only ibeacon packets??
 #Assume proper formating (ie. phone app handles it)
 
 	id = msg[3:col]
@@ -37,9 +36,8 @@ def parse(msg):
 	
 #Publish back to different topic for easier sorting
 	form = str(maj) + str(min) + " " + str(power) + str(rssi)
-	mqttc.publish("uq/beaconTracker/id/" + id,form, 0)
-
-
+	mqttc.publish("uq/beaconTracker/id/" + id,form, 2)
+	
 #Extra topic if need private info
 #	form = id + " " + str(power) + str(rssi)
 #	mqttc.publish("uq/beaconTracker/mm/" + str(maj) + str(min), form, 0) 
@@ -54,13 +52,12 @@ def on_connect(mosq, obj, rc):
 	print("rc: " +str(rc))
 
 def on_message(mosq, obj, msg):
-     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
+#     print(msg.topic+" "+str(msg.qos)+" "+str(msg.payload))
      parse(msg.payload)	
 
 def on_publish(mosq, obj, mid):
-#	print("Published: "+str(mid))
-#	mosq.disconnect()
-	a = mid
+	print("Published: "+str(mid))
+	a = mid	 
 
 def on_subscribe(mosq, obj, mid, granted_qos):
     print("Subscribed: "+str(mid)+" "+str(granted_qos))
