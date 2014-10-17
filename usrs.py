@@ -6,7 +6,7 @@ import time
 
 TOPIC = "uq/beaconTracker/raw"
 DATA = ":02 01 06 1A FF 4C 00 02 15 2F 23 44 54 CF 6D 4A 0F AD F2 F4 91 1B A9 FF A6 00 01 00 01 BE -"
-NUM = 50
+NUM = 1000
 
 #Mosquitto Set-up
 
@@ -48,7 +48,7 @@ while True:
 		msg[x] = msg[x][:-2] + rx
 
 #Wait before running again
-	time.sleep(random.randint(5,10))	
+	time.sleep(random.randint(10,20))	
 	
 
 

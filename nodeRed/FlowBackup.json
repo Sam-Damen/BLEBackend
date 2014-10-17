@@ -1,0 +1,1 @@
+[{"id":"1a8efafa.e57105","type":"inject","name":"Get Room Occupancy \"Room\"","topic":"","payload":"Laptop","payloadType":"string","repeat":"30","crontab":"","once":true,"x":154,"y":518,"z":"ab44d5d3.54bb28","wires":[["73f37538.8c0c8c"]]}]
