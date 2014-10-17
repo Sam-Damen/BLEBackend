@@ -11,8 +11,6 @@ MAXTIME = 180 #3min
 	
 while True:
 
-	time.sleep(14)
-	
 	#ensure time formats are the same for comparison
 	sysTime = time.mktime(time.gmtime(time.time()))
 
@@ -31,11 +29,11 @@ while True:
 			seen.add(x.get('phone'))
 
 	# remove any old entries 
-#	for doc in dups:
-#		usrTime = doc.get('_id').generation_time
-#		usrTime = time.mktime(usrTime.timetuple())
-#		if((sysTime - usrTime) > MAXTIME):
-#			dups.remove(doc)
+	for doc in dups:
+		usrTime = doc.get('_id').generation_time
+		usrTime = time.mktime(usrTime.timetuple())
+		if((sysTime - usrTime) > MAXTIME):
+			dups.remove(doc)
 
 
 	#Need list of _id

@@ -56,7 +56,7 @@ def on_message(mosq, obj, msg):
      parse(msg.payload)	
 
 def on_publish(mosq, obj, mid):
-	print("Published: "+str(mid))
+#	print("Published: "+str(mid))
 	a = mid	 
 
 def on_subscribe(mosq, obj, mid, granted_qos):
