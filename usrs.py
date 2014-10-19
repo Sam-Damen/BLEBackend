@@ -6,7 +6,7 @@ import time
 
 TOPIC = "uq/beaconTracker/raw"
 DATA = ":02 01 06 1A FF 4C 00 02 15 2F 23 44 54 CF 6D 4A 0F AD F2 F4 91 1B A9 FF A6 00 01 00 01 BE -"
-NUM = 500
+NUM = 300
 
 #Mosquitto Set-up
 
