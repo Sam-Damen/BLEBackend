@@ -8,10 +8,10 @@ import time
 phones = {}
 
 #How often to insert data to DB
-MINTIME = 1
+MINTIME = 0.5
 
 #Ensure no duplicate messages
-MULTI = 3
+MULTI = 1
 count = 0
 
 def checkTime(id, maj, min, tx, rx):

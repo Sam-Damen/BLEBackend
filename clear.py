@@ -7,7 +7,7 @@ import pymongo
 client = MongoClient()
 db = client.samd
 usr = db.users
-MAXTIME =  600 #10min
+MAXTIME =  60 #1min
 	
 while True:
 
